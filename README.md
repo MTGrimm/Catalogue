@@ -6,3 +6,8 @@ After cloning the git repo or installing the exe, add the exe as a path variable
 catalogue courseNumber [courseName]
 ```
 **If courseName not included:** the default courseName will be used
+
+To set/change default course:
+```
+catalogue -s courseName
+```
