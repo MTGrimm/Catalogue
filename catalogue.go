@@ -1,16 +1,22 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "io"
-    "log"
-    "strings"
-    "flag"
-    "github.com/gocolly/colly"
+	"flag"
+	"fmt"
+	"io"
+	"log"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/gocolly/colly"
 )
 
 func getCourse() {
+    dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+    if err != nil {
+        log.Fatal(err)
+    }
     // Checking a command-line argument was passed
     if len(os.Args) < 2 {
         fmt.Println("Please Enter Course Number")
@@ -18,7 +24,7 @@ func getCourse() {
     }
     courseNumber := os.Args[1]
     courseName := "cmput"
-    defaultFile, err := os.Open("default.txt")
+    defaultFile, err := os.Open(dir + "/default.txt")
 
     if err != nil {
         fmt.Println("Default file not found, default will be set to cmput")
@@ -66,7 +72,11 @@ func setCourse() {
     }
 
 
-    defaultFile, err := os.Create("default.txt")
+    dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+    if err != nil {
+        log.Fatal(err)
+    }
+    defaultFile, err := os.Create(dir + "/default.txt")
 
     if err != nil {
         fmt.Println("Default file not found")
